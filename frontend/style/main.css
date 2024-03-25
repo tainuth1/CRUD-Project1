@@ -1,0 +1,32 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+p{margin: 0 !important;}
+.card-wrapper{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 3rem;
+    row-gap: 2rem;
+}
+.pro-card{
+    width: 400px;
+    background-color: whitesmoke;
+    .pro-img{
+        width: 100%;
+        height: 300px;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .pro-info{
+        margin: 1rem;
+        height: 100px;
+        .price p{
+            color: green;
+        }
+    }
+}
