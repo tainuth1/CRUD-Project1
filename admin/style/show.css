@@ -27,3 +27,7 @@
         object-fit: cover;
     }
 }
+.table-wrapper{
+    height: 625px;
+    overflow-y: scroll;
+}

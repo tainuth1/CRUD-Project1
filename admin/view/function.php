@@ -4,6 +4,10 @@
 
     $connection = new mysqli('localhost', 'root', '', 'mydatabase');
 
+    function upload_image($thumbnail){
+        $path = '../images/'. $thumbnail;
+        move_uploaded_file($_FILES['_image']['tmp_name'], $path);
+    }
     function add_product(){
         global $connection;
 
@@ -16,8 +20,7 @@
 
             if(!empty($name) && !empty($category) && !empty($brand) && !empty($price) && !empty($image)){
                 $thumbnail = date('YmdHis') . '-' . $image;
-                $path = '../images/'. $thumbnail;
-                move_uploaded_file($_FILES['_image']['tmp_name'], $path);
+                upload_image($thumbnail);
 
                 $sql = "INSERT INTO `accessory` (`name`, `category`, `brand`, `price`, `image`)
                         VALUES('$name', '$category', '$brand', '$price', '$thumbnail')";
@@ -72,3 +75,62 @@
         }
     }
     delete_product();
+
+    function update_product(){
+        global $connection;
+        if(isset($_POST['_update-btn'])){
+
+            $id_to_update = $_POST['_id'];
+            $newName = $_POST['_name'];
+            $newCategory = $_POST['_category'];
+            $newBrand = $_POST['_brand'];
+            $newPrice = $_POST['_price'];
+            $newImage = $_FILES['_image']['name'];
+            $oldImage = $_POST['_old-img'];
+
+            if(empty($newImage)){
+                $thumbnail = $oldImage; 
+            }else{
+                $thumbnail = date('YmdHis').'-'.$newImage;
+                upload_image($thumbnail);
+
+                //Not Recommand to delete old image in folder
+                // $path = "../images/" . $oldImage;
+                // if(file_exists($path)){
+                //     unlink($path);
+                // }
+            }
+
+            if(!empty($newName) && !empty($newCategory) && !empty($newBrand) && !empty($newPrice)){
+                $sql = "UPDATE `accessory` 
+                        SET `name`     = '$newName', 
+                            `category` = '$newCategory',
+                            `brand`    = '$newBrand',
+                            `price`    = '$newPrice',
+                            `image`    = '$thumbnail'
+                        WHERE `id`     = $id_to_update;
+                    ";
+
+                $result = $connection->query($sql);
+
+                if($result){
+                    echo '
+                        <script>
+                            $(document).ready(function(){
+                                swal({
+                                    title: "Product Updated",
+                                    text: "You clicked the button!",
+                                    icon: "success",
+                                    button: "Continous",
+                                });
+                            });
+                        </script>
+                    ';
+                }
+            }else{
+                echo '<script>alert()</script>';
+            }
+        }
+
+    }
+    update_product();

@@ -13,14 +13,18 @@
 </head>
 <body>
     <div class="container d-flex justify-content-between align-items-center py-3">
-        <h2 class="text-primary "><i class="fa-solid fa-user-tie"></i> Admin Dashboard</h2>
-        <div class="">
+        <h2 class="text-primary w-25"><i class="fa-solid fa-user-tie"></i> Admin Dashboard</h2>
+        <div class="w-75 justify-content-end d-flex align-items-center gap-2" >
+            <form method="GET" class="search d-flex align-items-center gap-1 ">
+                <input type="search" name="_search" id="search" class="form-control " placeholder="Search..">
+                <button class="btn btn-primary">Search</button>
+            </form>
             <button class="btn btn-primary " id="open-add" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i> Add Product</button>
         </div>
     </div>
-    <div class="container mt-4">
+    <div class="container table-wrapper mt-4">
         <table class="table table-hover table-striped align-middle" style="table-layout: fixed;">
-            <tr class="table-dark shadow ">
+            <tr class="table-dark shadow position-sticky top-0 ">
                 <th>Picture</th>
                 <th>ID</th>
                 <th>Name</th>
@@ -43,21 +47,23 @@
             $('#update-btn').hide();
         });
 
-        $(document).on('click', '#open-update', function(){
+        $('body').on('click', '#open-update', function(){
             $('#add-btn').hide();
             $('#update-btn').show();
 
-            var id       = $(this).parents('tr').find('td').eq(0).text();
-            var name     = $(this).parents('tr').find('td').eq(1).text();
-            var category = $(this).parents('tr').find('td').eq(2).text();
-            var brand    = $(this).parents('tr').find('td').eq(3).text();
-            var price    = $(this).parents('tr').find('td').eq(4).text();
-
+            var image    = $(this).parents('tr').find('td:eq(0) img').attr('alt');
+            var id       = $(this).parents('tr').find('td').eq(1).text();
+            var name     = $(this).parents('tr').find('td').eq(2).text();
+            var category = $(this).parents('tr').find('td').eq(3).text();
+            var brand    = $(this).parents('tr').find('td').eq(4).text();
+            var price    = $(this).parents('tr').find('td').eq(5).text();
+            
             $('#id').val(id);
             $('#name').val(name);
             $('#category').val(category);
             $('#brand').val(brand);
             $('#price').val(price);
+            $('#old-img').val(image);
         });
     });
 </script>

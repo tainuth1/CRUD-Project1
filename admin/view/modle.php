@@ -6,8 +6,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="" method="post" enctype="multipart/form-data">
-            <input type="text" id="id">
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_id" id="id">
             <label for="" class="">Name</label>
             <input type="text" name="_name" id="name" autocomplete="off" class="form-control">
             <label for="" class="mt-2">Category</label>
@@ -21,6 +21,7 @@
                 <option value="controller">controller</option>
                 <option value="console">console</option>
             </select>
+            <input type="hidden" name="_old-img" id="old-img">
             <label for="" class="mt-2">Brand</label>
             <input type="text" name="_brand" id="brand" autocomplete="off" class="form-control">
             <label for="" class="mt-2">Price</label>
